@@ -6,8 +6,8 @@ using System.Text;
 
 class FileBackupSystem
 {
-    static string sourceDirectory = @"C:\Users\Tawny\source\repos\CS3280\Mod08_02\Mod08_02\WorkFiles\";  // Change as needed
-    static string backupDirectory = @"C:\Users\Tawny\source\repos\CS3280\Mod08_02\Mod08_02\Backup\";     // Change as needed
+    static string sourceDirectory = @"C:\Users\Tawny\source\repos\CS3280\Mod08_02\Mod08_02\WorkFiles\";  
+    static string backupDirectory = @"C:\Users\Tawny\source\repos\CS3280\Mod08_02\Mod08_02\Backup\";   
     static string logFilePath = Path.Combine(backupDirectory, "backup_log.txt");
 
     static void Main()
@@ -34,7 +34,7 @@ class FileBackupSystem
             watcher.EnableRaisingEvents = true;
 
             Console.WriteLine("🔍 Watching for changes...");
-            Console.ReadLine();  // Keep program running
+            Console.ReadLine();  
         }
     }
 
@@ -43,11 +43,10 @@ class FileBackupSystem
         string filePath = e.FullPath;
         string fileName = Path.GetFileName(filePath);
 
-        // Wait to ensure file is fully written
         System.Threading.Thread.Sleep(500);
 
         if (!File.Exists(filePath))
-            return;  // File might be deleted before processing
+            return; 
 
         try
         {
@@ -55,7 +54,6 @@ class FileBackupSystem
             string backupFileName = $"{fileName}.{timestamp}";
             string backupFilePath = Path.Combine(backupDirectory, backupFileName);
 
-            // Copy the modified file to the backup directory
             File.Copy(filePath, backupFilePath, true);
             Console.WriteLine($"✅ Backup created: {backupFilePath}");
 
